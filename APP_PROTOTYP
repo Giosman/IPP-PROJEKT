@@ -1,0 +1,32 @@
+onEvent("Notiser", "click", function( ) {
+	setScreen("NOTISER");
+	console.log("Notiser clicked!");
+});
+onEvent("påminn", "click", function( ) {
+	setScreen("ALARM");
+	console.log("påminn clicked!");
+});
+onEvent("SOS", "click", function( ) {
+	setScreen("NOTISER");
+	console.log("SOS clicked!");
+});
+onEvent("Info", "click", function( ) {
+	setScreen("INFO");
+	console.log("Info clicked!");
+});
+onEvent("Home1", "click", function( ) {
+	setScreen("MENY");
+	console.log("image6 clicked!");
+});
+onEvent("Home2", "click", function( ) {
+	setScreen("MENY");
+	console.log("Home2 clicked!");
+});
+onEvent("Home3", "click", function( ) {
+	setScreen("MENY");
+	console.log("INFO clicked!");
+});
+onEvent("Ring112", "click", function( ) {
+	open("https://www.sosalarm.se/112-och-andra-viktiga-nummer/viktiga-nummer/112/");
+	console.log("Ring112 clicked!");
+});
