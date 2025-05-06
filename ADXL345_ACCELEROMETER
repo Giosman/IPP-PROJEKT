@@ -4,33 +4,41 @@
 
 Adafruit_ADXL345_Unified accel = Adafruit_ADXL345_Unified();
 
-void setup() 
-{
+// Umbral de tolerancia para la comparación de valores
+const float UMBRAL_TOLERANCIA = 0.5; // Ajusta este valor según la precisión deseada
+
+void setup() {
   Serial.begin(9600);
 
-  if(!accel.begin())
-  {
-    Serial.println("Sensoren startades inte");
-    while(true);
+  if (!accel.begin()) {
+    Serial.println("No se pudo encontrar el sensor ADXL345.");
+    Serial.println("ERROR_SENSOR"); // Informar a App Inventor
+    while (1) delay(100);
   }
+
+  accel.setRange(ADXL345_RANGE_4_G);
+  Serial.println("ADXL345 configurado.");
+  Serial.println("SISTEMA_LISTO"); // Mensaje inicial para App Inventor
 }
 
-void loop() 
-{
-  Sensors_event_t event;
+void loop() {
+  sensors_event_t event;
   accel.getEvent(&event);
 
-  Serial.print("X = "); 
-  Serial.print(event.acceleration.x); 
-  Serial.print (" ");
+  float accX = event.acceleration.x;
+  float accY = event.acceleration.y;
+  float accZ = event.acceleration.z;
 
-  Serial.print("Y = "); 
-  Serial.print(event.acceleration.y); 
-  Serial.print (" ");
+  // Comprobar si los valores están dentro del umbral de los objetivos
+  if (abs(accX - 0.50) < UMBRAL_TOLERANCIA &&
+      abs(accY - (-0.50)) < UMBRAL_TOLERANCIA &&
+      abs(accZ - (-9.60)) < UMBRAL_TOLERANCIA) {
+    Serial.println("ALERTA"); // Enviar mensaje específico
+  } 
+  else 
+  {
+    Serial.println("NORMAL");
+  }
 
-  Serial.print("Z = "); 
-  Serial.print(event.acceleration.z); 
-  Serial.println (" ");
-  
-  delay(1000);
+  delay(2000);
 }
