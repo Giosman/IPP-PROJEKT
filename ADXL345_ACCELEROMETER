@@ -37,7 +37,7 @@ void loop()
       abs(accY - (-0.50)) < APROX &&
       abs(accZ - (-9.60)) < APROX) 
   {
-    Serial.println("ALERTA");  // Send specific message
+    Serial.println("ALERT");  // Send specific message
   } 
   else 
   {
