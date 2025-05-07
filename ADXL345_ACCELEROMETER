@@ -4,24 +4,27 @@
 
 Adafruit_ADXL345_Unified accel = Adafruit_ADXL345_Unified();
 
-// Umbral de tolerancia para la comparación de valores
-const float UMBRAL_TOLERANCIA = 0.5; // Ajusta este valor según la precisión deseada
+// Tolerance threshold for comparing values
+const float APROX = 0.5;
 
-void setup() {
+void setup() 
+{
   Serial.begin(9600);
 
-  if (!accel.begin()) {
-    Serial.println("No se pudo encontrar el sensor ADXL345.");
-    Serial.println("ERROR_SENSOR"); // Informar a App Inventor
-    while (1) delay(100);
+  if (!accel.begin()) 
+  {
+    Serial.println("Failed to find ADXL345 sensor.");
+    Serial.println("ERROR_SENSOR");  // Inform App Inventor
+    while (true) delay(100);
   }
 
   accel.setRange(ADXL345_RANGE_4_G);
-  Serial.println("ADXL345 configurado.");
-  Serial.println("SISTEMA_LISTO"); // Mensaje inicial para App Inventor
+  Serial.println("ADXL345 configured.");
+  Serial.println("SYSTEM_READY");  // Initial message for App Inventor
 }
 
-void loop() {
+void loop() 
+{
   sensors_event_t event;
   accel.getEvent(&event);
 
@@ -29,11 +32,12 @@ void loop() {
   float accY = event.acceleration.y;
   float accZ = event.acceleration.z;
 
-  // Comprobar si los valores están dentro del umbral de los objetivos
-  if (abs(accX - 0.50) < UMBRAL_TOLERANCIA &&
-      abs(accY - (-0.50)) < UMBRAL_TOLERANCIA &&
-      abs(accZ - (-9.60)) < UMBRAL_TOLERANCIA) {
-    Serial.println("ALERTA"); // Enviar mensaje específico
+  // Check if the values are within the target threshold
+  if (abs(accX - 0.50) < APROX &&
+      abs(accY - (-0.50)) < APROX &&
+      abs(accZ - (-9.60)) < APROX) 
+  {
+    Serial.println("ALERTA");  // Send specific message
   } 
   else 
   {
